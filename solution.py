@@ -7,7 +7,10 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
     #mail_server = ("smtp.gmail.com", 587)
-    mail_server = ("smtp.mail.yahoo.com", 465)
+    #mail_server = ("smtp.mail.yahoo.com", 465)
+    #mail_server = ("smtp.aol.com", 25)
+    #mail_server = ("smtp.sendgrid.com", 587)
+    #mail_server = ("mail.smtp2go.com", 2525)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
     # Fill in start
@@ -16,7 +19,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in end
 
     recv = clientSocket.recv(1024).decode()
-    print(recv) #You can use these print statement to validate return codes from the server.
+    #print(recv) #You can use these print statement to validate return codes from the server.
     #if recv[:3] != '220'::
     #    print('220 reply not received from server.')
 
@@ -24,28 +27,30 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
     recv1 = clientSocket.recv(1024).decode()
-    print(recv1)
+    #print(recv1)
     #if recv1[:3] != '250':
     #    print('250 reply not received from server.')
-    print('Moving on')
+
+
     # Send MAIL FROM command and handle server response.
     # Fill in start
     messageFrom = "MAIL FROM: <kevinjohnson1999@yahoo.com>\r\n"
     clientSocket.send(messageFrom.encode())
-    print(messageFrom)
+    #print(messageFrom)
     recv2 = clientSocket.recv(1024)
     recv2 = recv2.decode()
-    print(recv2)
+    #print(recv2)
     # Fill in end
     #print('Hello')
 
     # Send RCPT TO command and handle server response.
     # Fill in start
-    receiptTo = "RCPT TO: <kevin.johnson@nyu.edu>\r\n"
-    clientSocket.send(receiptTo.encode())
+    recTo = "RCPT TO: <kevinjohnson1999@gmail.com>\r\n"
+    clientSocket.send(recTo.encode())
     recv3 = clientSocket.recv(1024)
     recv3 = recv3.decode()
     # Fill in end
+    #print(recTo)
     #print(recv3)
 
     # Send DATA command and handle server response.
