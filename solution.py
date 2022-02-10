@@ -65,22 +65,22 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in start
     subject = "This is my test mail subject for programming assignment 3"
     clientSocket.send(subject.encode())
-
+    recv6 = clientSocket.recv(1024)
     clientSocket.send(msg.encode())
-    recv5 = clientSocket.recv(1024)
+    recv7 = clientSocket.recv(1024)
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
     clientSocket.send(endmsg.encode())
-    recv6 = clientSocket.recv(1024)
+    recv8 = clientSocket.recv(1024)
     # Fill in end
 
     # Send QUIT command and handle server response.
     # Fill in start
     quit = "QUIT\r\n"
     clientSocket.send(quit.encode())
-    recv7 = clientSocket.recv(1024)
+    recv9 = clientSocket.recv(1024)
     clientSocket.close()
     # Fill in end
 
