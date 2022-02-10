@@ -6,10 +6,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     endmsg = "\r\n.\r\n"
 
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-
+    mail_server = ("smtp.gmail.com", 587)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
     # Fill in start
+    clientSocket = socket(AF_INET, SOCK_STREAM)
     # Fill in end
 
     recv = clientSocket.recv(1024).decode()
@@ -27,26 +28,48 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
+    messageFrom = "MAIL FROM: <kevinjohnson1999@gmail>"
+    clientSocket.send(messageFrom.encode())
+    recv2 = clientSocket.recv(1024)
+    recv2 = recv2.decode()
     # Fill in end
 
     # Send RCPT TO command and handle server response.
     # Fill in start
+    receiptT0 = "RCPT TO: <kevin.johnson@nyu.edu>"
+    clientSocket.send(rcptTo.encode())
+    recv3 = clientSocket.recv(1024)
+    recv3 = recv3.decode()
     # Fill in end
 
     # Send DATA command and handle server response.
     # Fill in start
+    data = "DATA>"
+    clientSocket.send(data.encode())
+    recv4 = clientSocket.recv(1024)
+    recv4 = recv4.decode()
     # Fill in end
 
     # Send message data.
     # Fill in start
+    subject = "This is my test mail subject for programming assignment 3"
+    clientSocket.send(subject.encode())
+
+    clientSocket.send(msg.encode())
+    recv5 = clientSocket.recv(1024)
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
+    clientSocket.send(endmsg.encode())
+    recv6 = clientSocket.recv(1024)
     # Fill in end
 
     # Send QUIT command and handle server response.
     # Fill in start
+    quit = "QUIT"
+    clientSocket.send(quit.encode())
+    recv7 = clientSocket.recv(1024)
     # Fill in end
 
 
