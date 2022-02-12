@@ -10,7 +10,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     #mail_server = ("smtp.mail.yahoo.com", 465)
     #mail_server = ("smtp.aol.com", 25)
     #mail_server = ("smtp.sendgrid.com", 587)
-    #mail_server = ("mail.smtp2go.com", 2525)
+    mail_server = ("mail.smtp2go.com", 2525)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
     # Fill in start
@@ -81,7 +81,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     quit = "QUIT\r\n"
     clientSocket.send(quit.encode())
     recv9 = clientSocket.recv(1024)
-    #clientSocket.close()
+    clientSocket.close()
     # Fill in end
 
 
