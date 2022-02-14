@@ -77,8 +77,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     clientSocket.send(msg.encode())
     #print("Sent encoded subject and message")
-    #recv6 = clientSocket.recv(1024) - Commented out becasue not expecting server response
-    #recv6 = recv6.decode() - Commented out becasue not expecting server response
+    #recv6 = clientSocket.recv(1024) - Commented out because not expecting server response
+    #recv6 = recv6.decode() - Commented out because not expecting server response
     #print("Received response after subject and message sent")
     ##print(recv6)
     ##clientSocket.send(msg.encode())
@@ -90,7 +90,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
     clientSocket.send(endmsg.encode())
-    recv8 = clientSocket.recv(1024)
+    #recv8 = clientSocket.recv(1024) - Commented out because don't want server response
     # Fill in end
     #print(recv8)
 
