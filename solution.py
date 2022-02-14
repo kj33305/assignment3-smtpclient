@@ -1,5 +1,4 @@
 from socket import *
-import base64
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
@@ -10,7 +9,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     #mail_server = ("smtp.mail.yahoo.com", 465)
     #mail_server = ("smtp.aol.com", 25)
     #mail_server = ("smtp.sendgrid.com", 587)
-    mail_server = ("mail.smtp2go.com", 2525)
+    #mail_server = ("mail.smtp2go.com", 2525)
+    mail_server = ("smtp.test.com", 1025)
     #mail_server = ("mail.nyu.edu", 995)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
@@ -24,6 +24,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     if recv[:3] != '220':
         #print('220 reply not received from server.')
     #print("Got a 220")
+
     # Send HELO command and print server response.
     heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
@@ -31,31 +32,12 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     #print(recv1)
     if recv1[:3] != '250':
         #print('250 reply not received from server.')
-    #print(heloCommand)
-    command = 'STARTTLS \r\n'
-    command = command.encode()
-    clientSocket.send(command)
-    recv2 = clientSocket.recv(1024)
-    recv2 = recv2.decode()
-    #print("Message after STARTTLS command:" + recv2)
-    if recv2[:3] != '250':
-        #print('250 reply not received from server.')
-
-    #print("Start TTLS")
-    # Info for username and password
-    username = "xxxx" 	#input("Enter the username : ")
-    password = "xxxx" 				#input("Enter the password : ")
-    base64_str = ("\x00"+username+"\x00"+password).encode()
-    base64_str = base64.b64encode(base64_str)
-    authMsg = "AUTH PLAIN ".encode()+base64_str+"\r\n".encode()
-    clientSocket.send(authMsg)
-    recv_auth = clientSocket.recv(1024)
-    #print(recv_auth.decode())
-
-
+        #print(heloCommand)
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
+
+    global messageFrom
     messageFrom = "MAIL FROM: <kevinjohnson1999@yahoo.com>\r\n"
     clientSocket.send(messageFrom.encode())
     #print(messageFrom)
@@ -81,15 +63,18 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     recv4 = clientSocket.recv(1024)
     recv4 = recv4.decode()
     #print(recv4)
+    #print("After4")
     # Fill in end
 
     # Send message data.
     # Fill in start
     subject = "This is my test mail subject for programming assignment 3"
     clientSocket.send(subject.encode())
-    recv6 = clientSocket.recv(1024)
+    #recv6 = clientSocket.recv(1024)
+    #print(recv6)
     clientSocket.send(msg.encode())
     recv7 = clientSocket.recv(1024)
+    #print(recv7)
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
@@ -97,6 +82,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     clientSocket.send(endmsg.encode())
     recv8 = clientSocket.recv(1024)
     # Fill in end
+    #print(recv8)
 
     # Send QUIT command and handle server response.
     # Fill in start
