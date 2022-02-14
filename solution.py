@@ -1,5 +1,5 @@
 from socket import *
-
+import base64
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
@@ -11,25 +11,47 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     #mail_server = ("smtp.aol.com", 25)
     #mail_server = ("smtp.sendgrid.com", 587)
     mail_server = ("mail.smtp2go.com", 2525)
+    #mail_server = ("mail.nyu.edu", 995)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
     # Fill in start
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.connect(mail_server)
     # Fill in end
-
+    #print("Socket")
     recv = clientSocket.recv(1024).decode()
     #print(recv) #You can use these print statement to validate return codes from the server.
     if recv[:3] != '220':
-    #    print('220 reply not received from server.')
-
+        #print('220 reply not received from server.')
+    #print("Got a 220")
     # Send HELO command and print server response.
     heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
     recv1 = clientSocket.recv(1024).decode()
     #print(recv1)
     if recv1[:3] != '250':
-    #    print('250 reply not received from server.')
+        #print('250 reply not received from server.')
+    #print(heloCommand)
+    command = 'STARTTLS \r\n'
+    command = command.encode()
+    clientSocket.send(command)
+    recv2 = clientSocket.recv(1024)
+    recv2 = recv2.decode()
+    #print("Message after STARTTLS command:" + recv2)
+    if recv2[:3] != '250':
+        #print('250 reply not received from server.')
+
+    #print("Start TTLS")
+    # Info for username and password
+    username = "xxxx" 	#input("Enter the username : ")
+    password = "xxxx" 				#input("Enter the password : ")
+    base64_str = ("\x00"+username+"\x00"+password).encode()
+    base64_str = base64.b64encode(base64_str)
+    authMsg = "AUTH PLAIN ".encode()+base64_str+"\r\n".encode()
+    clientSocket.send(authMsg)
+    recv_auth = clientSocket.recv(1024)
+    #print(recv_auth.decode())
+
 
 
     # Send MAIL FROM command and handle server response.
@@ -50,7 +72,6 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     recv3 = clientSocket.recv(1024)
     recv3 = recv3.decode()
     # Fill in end
-    #print(recTo)
     #print(recv3)
 
     # Send DATA command and handle server response.
@@ -59,6 +80,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     clientSocket.send(data.encode())
     recv4 = clientSocket.recv(1024)
     recv4 = recv4.decode()
+    #print(recv4)
     # Fill in end
 
     # Send message data.
@@ -81,6 +103,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     quit = "QUIT\r\n"
     clientSocket.send(quit.encode())
     recv9 = clientSocket.recv(1024)
+    #print(recv9)
     clientSocket.close()
     # Fill in end
 
