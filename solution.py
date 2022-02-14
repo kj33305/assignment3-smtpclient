@@ -62,19 +62,27 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     clientSocket.send(data.encode())
     recv4 = clientSocket.recv(1024)
     recv4 = recv4.decode()
+    #print("DATA sent")
     #print(recv4)
-    #print("After4")
+    #print("DATA receipt")
     # Fill in end
 
     # Send message data.
     # Fill in start
     subject = "This is my test mail subject for programming assignment 3"
+    #print(subject)
     clientSocket.send(subject.encode())
-    #recv6 = clientSocket.recv(1024)
-    #print(recv6)
+
     clientSocket.send(msg.encode())
-    recv7 = clientSocket.recv(1024)
-    #print(recv7)
+    #print("Sent encoded subject and message")
+    #recv6 = clientSocket.recv(1024) - Commented out becasue not expecting server response
+    #recv6 = recv6.decode() - Commented out becasue not expecting server response
+    #print("Received response after subject and message sent")
+    ##print(recv6)
+    ##clientSocket.send(msg.encode())
+    ##recv7 = clientSocket.recv(1024)
+    ##recv7 = recv7.decode()
+    ##print(recv7)
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
