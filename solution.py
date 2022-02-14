@@ -39,7 +39,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Send MAIL FROM command and handle server response.
     # Fill in start
 
-    global messageFrom
+    #global messageFrom
     messageFrom = "MAIL FROM: <kevinjohnson1999@yahoo.com>\r\n"
     clientSocket.send(messageFrom.encode())
     #print(messageFrom)
@@ -90,7 +90,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
     clientSocket.send(endmsg.encode())
-    #recv8 = clientSocket.recv(1024) - Commented out because don't want server response
+    recv8 = clientSocket.recv(1024)
+    recv8 = recv8.decode()
     # Fill in end
     #print(recv8)
 
