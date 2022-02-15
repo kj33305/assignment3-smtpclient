@@ -11,7 +11,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # mail_server = ("smtp.aol.com", 25)
     # mail_server = ("smtp.sendgrid.com", 587)
     # mail_server = ("mail.smtp2go.com", 2525)
-    mail_server = ("smtp.test.com", 1025)
+    mail_server = ("127.0.0.1", 1025)
+    # mail_server = ("smtp.test.com", 1025)
     # mail_server = ("mail.nyu.edu", 995)
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
@@ -70,11 +71,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # print(subject)
     clientSocket.send(subject.encode())
     clientSocket.send(msg.encode())
-    # print("Sent encoded subject and message")
-    # recv6 = clientSocket.recv(1024) - Commented out because not expecting server response
-    # recv6 = recv6.decode() - Commented out because not expecting server response
-    # print("Received response after subject and message sent")
-    ##print(recv6)
+    #print("Sent encoded subject and message")
+    #recv6 = clientSocket.recv(1024)# - Commented out because not expecting server response
+    #recv6 = recv6.decode()# - Commented out because not expecting server response
+    #print("Received response after subject and message sent")
+    #print(recv6)
     ##clientSocket.send(msg.encode())
     # recv7 = clientSocket.recv(1024)
     # recv7 = recv7.decode()
@@ -86,6 +87,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     clientSocket.send(endmsg.encode())
     recv8 = clientSocket.recv(1024)
     recv8 = recv8.decode()
+    #print(recv8)
     # Fill in end
 
     # Send QUIT command and handle server response.
@@ -94,7 +96,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     clientSocket.send(quit.encode())
     recv9 = clientSocket.recv(1024)
     recv9 = recv9.decode()
-    # print(recv9)
+    #print(recv9)
     # clientSocket.close()
     # Fill in end
 
